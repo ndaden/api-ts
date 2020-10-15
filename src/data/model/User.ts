@@ -19,41 +19,43 @@ const schema = new Schema({
     username: {
         type: String,
         required: 'Username is required',
-        unique: true
+        unique: true,
     },
     email: {
         type: String,
         required: 'Email is required',
         lowercase: true,
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
-        trim: true
+        trim: true,
     },
     avatarUrl: {
         type: String,
-        trim: true
+        trim: true,
     },
     isActive: {
         type: Boolean,
-        default: false
+        default: false,
     },
     isBlocked: {
         type: Boolean,
-        default: false
+        default: false,
     },
     activationDate: {
-        type: Date
+        type: Date,
     },
     activationCode: {
         type: Schema.Types.ObjectId,
-        ref: 'activationCode'
+        ref: 'activationCode',
     },
-    roles: [{
-        type: Schema.Types.ObjectId,
-        ref: 'role'
-    }]
+    roles: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'role',
+        },
+    ],
 });
 
 export const UserModel = model<User>(DOCUMENT_NAME, schema, COLLECTION_NAME);
