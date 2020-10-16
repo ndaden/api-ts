@@ -1,0 +1,10 @@
+.git
+.npmrc
+.yarnrc
+.eslintrc.js
+jest.config.js
+coverage
+dist
+build
+public
+node_modules
