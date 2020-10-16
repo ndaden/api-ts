@@ -4,7 +4,7 @@
   "description": "Basic TypeScript Project",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node -r dotenv/config build/index.js",
+    "start": "npm run build && node build/index.js",
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "test": "jest --forceExit --detectOpenHandles --coverage --verbose",
