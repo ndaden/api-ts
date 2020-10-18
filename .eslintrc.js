@@ -12,20 +12,5 @@ module.exports = {
     rules: {
         // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
         // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-        'prettier/prettier': [
-            'WARN',
-            {
-                endOfLine: 'auto',
-                printWidth: 120,
-                tabWidth: 2,
-                useTabs: false,
-                semi: true,
-                singleQuote: false,
-                trailingComma: 'none',
-                bracketSpacing: true,
-                jsxBracketSameLine: true,
-                arrowParens: 'avoid',
-            },
-        ],
     },
 };
