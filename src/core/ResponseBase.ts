@@ -3,13 +3,11 @@ import { ResponseStatus } from './ResponseStatus';
 import { StatusCode } from './StatusCode';
 
 export abstract class ResponseBase {
-    constructor(protected statusCode: StatusCode, protected status: ResponseStatus, protected message: string){}
+    constructor(protected statusCode: StatusCode, protected status: ResponseStatus, protected message: string) {}
 
     private static sanitize<T extends ResponseBase>(response: T): T {
         const clone: T = <T>{};
         Object.assign(clone, response);
-        // delete {some_field};
-        //delete clone.status;
         for (const i in clone) if (typeof clone[i] === 'undefined') delete clone[i];
         return clone;
     }

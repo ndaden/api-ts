@@ -2,9 +2,11 @@ import express, { NextFunction, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import { corsUrl } from './config';
+import { corsUrl, environment } from './config';
 import routerV1 from './routes/v1';
 import logger from './tools/logger';
+import { ErrorBase, InternalError, NotFoundError } from './core/ErrorBase';
+import './data/database'; //initialize database
 
 const app = express();
 
@@ -14,9 +16,21 @@ app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }));
 
 app.use('/v1', routerV1);
 
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-    logger.error(error.message);
-    return res.status(500).send(error.message);
+// catch 404 and forward to error handler
+app.use((req, res, next) => next(new NotFoundError()));
+
+// Middleware Error Handler
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    if (err instanceof ErrorBase) {
+        ErrorBase.handle(err, res);
+    } else {
+        if (environment === 'development') {
+            logger.error(err);
+            return res.status(500).send(err.message);
+        }
+        ErrorBase.handle(new InternalError(), res);
+    }
 });
 
 export default app;
