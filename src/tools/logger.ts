@@ -37,8 +37,9 @@ export default createLogger({
         new transports.Console({
             level: logLevel,
             format: format.combine(format.errors({ stack: true }), format.prettyPrint()),
+            handleExceptions: environment === 'development',
         }),
     ],
-    exceptionHandlers: [new DailyRotateFile(options.file)],
+    exceptionHandlers: environment !== 'development' ? [new DailyRotateFile(options.file)] : [],
     exitOnError: false, // do not exit on handled exceptions
 });
