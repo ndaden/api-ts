@@ -1,4 +1,6 @@
 import { model, Document, Schema } from 'mongoose';
+import Role, { RoleModel } from './Role';
+import ActivationCode, { ActivationCodeModel } from './ActivationCode';
 
 export const DOCUMENT_NAME = 'user';
 export const COLLECTION_NAME = 'users';
@@ -11,8 +13,10 @@ export default interface User extends Document {
     isActive: boolean;
     isBlocked: boolean;
     activationDate: Date;
-    activationCode: string;
-    roles: string[];
+    activationCode: ActivationCode;
+    roles: Role[];
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 const schema = new Schema({
@@ -29,6 +33,7 @@ const schema = new Schema({
     },
     password: {
         type: String,
+        select: false,
         trim: true,
     },
     avatarUrl: {
@@ -48,14 +53,24 @@ const schema = new Schema({
     },
     activationCode: {
         type: Schema.Types.ObjectId,
-        ref: 'activationCode',
+        ref: ActivationCodeModel,
     },
     roles: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'role',
+            ref: RoleModel,
         },
     ],
+    createdAt: {
+        type: Date,
+        required: true,
+        select: false,
+    },
+    updatedAt: {
+        type: Date,
+        required: true,
+        select: false,
+    },
 });
 
 export const UserModel = model<User>(DOCUMENT_NAME, schema, COLLECTION_NAME);

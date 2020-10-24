@@ -2,11 +2,11 @@ import express, { NextFunction, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+import './data/database'; //initialize database
 import { corsUrl, environment } from './config';
 import routerV1 from './routes/v1';
 import logger from './tools/logger';
 import { ErrorBase, InternalError, NotFoundError } from './core/ErrorBase';
-import './data/database'; //initialize database
 
 const app = express();
 
