@@ -10,5 +10,11 @@ export const db = {
     password: process.env.DB_USER_PWD || '',
 };
 
+export const tokenInfo = {
+    accessTokenValidityDays: parseInt(process.env.ACCESS_TOKEN_VALIDITY_DAYS || '1'),
+    refreshTokenValidityDays: parseInt(process.env.REFRESH_TOKEN_VALIDITY_DAYS || '1'),
+    issuer: process.env.TOKEN_ISSUER || '',
+    audience: process.env.TOKEN_AUDIENCE || '',
+};
 export const corsUrl = process.env.CORS_URL;
 export const logDirectory = 'logs';

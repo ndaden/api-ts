@@ -14,7 +14,7 @@ export default class UserRepository {
         return UserModel.findOne({ _id: id }).populate('activationCode roles').lean<User>().exec();
     }
     public static findByUsername(username: string): Promise<User | null> {
-        return UserModel.findOne({ username: username }).select('+username').lean<User>().exec();
+        return UserModel.findOne({ username: username }).select('+username +password').lean<User>().exec();
     }
     public static findByEmail(email: string): Promise<User | null> {
         return UserModel.findOne({ email: email }).select('+email').lean<User>().exec();
