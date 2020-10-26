@@ -10,8 +10,15 @@ import { RoleCode } from '../../../data/model/RoleCode';
 import AsyncHandler from '../../../core/AsyncHandler';
 import validator from '../../../tools/validator';
 import schema from './schema';
+import authentication from '../../../middleware/authentication';
+import role from '../../../middleware/role';
+import authorization from '../../../middleware/authorization';
 
 const router = express.Router();
+
+/** ALL ROUTES HERE ARE PROTECTED BY ACCESS TOKEN AND ADMINISTRATOR ROLE */
+router.use('/', authentication, role(RoleCode.ADMINISTRATOR), authorization);
+/** ALL ROUTES HERE ARE PROTECTED BY ACCESS TOKEN AND ADMINISTRATOR ROLE */
 
 async function getUsers(req: Request, res: Response) {
     const users = await UserRepository.getAllUsers();
